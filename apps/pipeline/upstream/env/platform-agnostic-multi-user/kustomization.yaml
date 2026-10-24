@@ -28,9 +28,13 @@ images:
     newName: public.ecr.aws/cleanstart/minio
     digest: sha256:72ab5efefb9ba1afe79f72df8677d9c1439933646fba728262668c70a5be3636
 
-# 대체 minio 이미지는 uid 65532로 실행되므로 PVC 데이터 디렉터리 소유권을 initContainer로 맞춘다.
+# 2.4.0은 mysql/minio를 uid 1000으로 실행하므로 PVC 데이터 디렉터리 소유권을 initContainer로 맞춘다.
 patches:
   - path: minio-data-permissions-patch.yaml
     target:
       kind: Deployment
       name: minio
+  - path: mysql-data-permissions-patch.yaml
+    target:
+      kind: Deployment
+      name: mysql
