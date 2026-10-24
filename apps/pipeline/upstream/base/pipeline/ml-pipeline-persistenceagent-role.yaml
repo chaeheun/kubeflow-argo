@@ -20,8 +20,45 @@ rules:
   - list
   - watch
 - apiGroups:
-  - ''
+  - pipelines.kubeflow.org
   resources:
-  - namespaces
+  - scheduledworkflows
+  - workflows
   verbs:
+  - report
+- apiGroups:
+    - pipelines.kubeflow.org
+  resources:
+    - runs
+  verbs:
+    - reportMetrics
+    - readArtifact
+- apiGroups:
+  - tekton.dev
+  resources:
+  - pipelineruns
+  - taskruns
+  - conditions
+  - runs
+  - tasks
+  - customruns
+  verbs:
+  - create
   - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - custom.tekton.dev
+  resources:
+  - pipelineloops
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete

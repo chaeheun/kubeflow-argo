@@ -1,7 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
+  - ../../third-party/metacontroller/base
   - ../../base/installs/multi-user
   - ../../base/metadata/base
   - ../../base/metadata/options/istio
@@ -10,7 +11,6 @@ bases:
   - ../../third-party/mysql/options/istio
   - ../../third-party/minio/base
   - ../../third-party/minio/options/istio
-  - ../../third-party/metacontroller/base
 
 # Identifier for application manager to apply ownerReference.
 # The ownerReference ensures the resources get garbage collected
@@ -22,15 +22,13 @@ commonLabels:
 # please also update base/cache-deployer/cluster-scoped/cache-deployer-clusterrolebinding.yaml
 namespace: kubeflow
 
-# gcr.io/ml-pipeline 의 frontend, minio 이미지가 삭제되어 대체 이미지로 교체한다.
+# gcr.io/ml-pipeline/minio 이미지가 삭제되어 대체 이미지로 교체한다 (digest 고정).
 images:
-  - name: gcr.io/ml-pipeline/frontend
-    newName: ghcr.io/kubeflow/kfp-frontend
-    newTag: 2.4.0
   - name: gcr.io/ml-pipeline/minio
     newName: public.ecr.aws/cleanstart/minio
     digest: sha256:72ab5efefb9ba1afe79f72df8677d9c1439933646fba728262668c70a5be3636
 
+# 대체 minio 이미지는 uid 65532로 실행되므로 PVC 데이터 디렉터리 소유권을 initContainer로 맞춘다.
 patches:
   - path: minio-data-permissions-patch.yaml
     target:

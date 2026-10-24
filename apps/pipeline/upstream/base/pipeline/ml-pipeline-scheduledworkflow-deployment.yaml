@@ -16,10 +16,12 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
     spec:
       containers:
-      - image: gcr.io/ml-pipeline/scheduledworkflow:dummy
+      - image: ghcr.io/kubeflow/kfp-scheduled-workflow-controller:dummy
         imagePullPolicy: IfNotPresent
         name: ml-pipeline-scheduledworkflow
         env:
+          - name: LOG_LEVEL
+            value: "info"
           - name: NAMESPACE
             valueFrom:
               fieldRef:
@@ -29,4 +31,14 @@ spec:
               configMapKeyRef:
                 name: pipeline-install-config
                 key: cronScheduleTimezone
+        securityContext:
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 0
+          capabilities:
+            drop:
+            - ALL
       serviceAccountName: ml-pipeline-scheduledworkflow
