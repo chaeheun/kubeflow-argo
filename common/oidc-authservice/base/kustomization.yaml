@@ -43,5 +43,6 @@ configurations:
 - params.yaml
 images:
 - name: gcr.io/arrikto/kubeflow/oidc-authservice
-  newName: gcr.io/arrikto/kubeflow/oidc-authservice
+  # gcr.io/arrikto 이미지가 내려가서 kubeflow-manifests-wg 이미지(같은 태그)로 대체
+  newName: docker.io/kubeflowmanifestswg/oidc-authservice
   newTag: e236439
