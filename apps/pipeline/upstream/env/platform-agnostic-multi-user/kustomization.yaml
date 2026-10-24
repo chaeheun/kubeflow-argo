@@ -11,6 +11,7 @@ resources:
   - ../../third-party/mysql/options/istio
   - ../../third-party/minio/base
   - ../../third-party/minio/options/istio
+  - minio-console-service.yaml
 
 # Identifier for application manager to apply ownerReference.
 # The ownerReference ensures the resources get garbage collected
@@ -31,6 +32,10 @@ images:
 # 2.4.0은 mysql/minio를 uid 1000으로 실행하므로 PVC 데이터 디렉터리 소유권을 initContainer로 맞춘다.
 patches:
   - path: minio-data-permissions-patch.yaml
+    target:
+      kind: Deployment
+      name: minio
+  - path: minio-console-patch.yaml
     target:
       kind: Deployment
       name: minio
