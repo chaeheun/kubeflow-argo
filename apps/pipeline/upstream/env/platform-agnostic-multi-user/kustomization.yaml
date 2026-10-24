@@ -30,3 +30,9 @@ images:
   - name: gcr.io/ml-pipeline/minio
     newName: public.ecr.aws/cleanstart/minio
     digest: sha256:72ab5efefb9ba1afe79f72df8677d9c1439933646fba728262668c70a5be3636
+
+patches:
+  - path: minio-data-permissions-patch.yaml
+    target:
+      kind: Deployment
+      name: minio

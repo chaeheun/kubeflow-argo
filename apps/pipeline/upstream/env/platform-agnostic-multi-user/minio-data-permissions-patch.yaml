@@ -1,0 +1,20 @@
+# 대체 minio 이미지(cleanstart/minio)는 uid 65532로 실행되는데 PVC 데이터 디렉터리는 root 소유라
+# "file access denied"로 종료한다. local-path(hostPath 계열)는 fsGroup이 적용되지 않으므로
+# root로 실행하는 initContainer가 소유권을 맞춘다.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: fix-data-permissions
+        image: docker.io/library/busybox:1.36.1
+        command: ["sh", "-c", "chown -R 65532:65532 /data"]
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: data
+          mountPath: /data
+          subPath: minio
