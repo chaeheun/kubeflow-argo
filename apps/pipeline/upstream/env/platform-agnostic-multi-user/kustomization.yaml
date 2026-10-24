@@ -39,6 +39,10 @@ patches:
     target:
       kind: Deployment
       name: minio
+  - path: minio-service-nodeport-patch.yaml
+    target:
+      kind: Service
+      name: minio-service
   - path: mysql-data-permissions-patch.yaml
     target:
       kind: Deployment
