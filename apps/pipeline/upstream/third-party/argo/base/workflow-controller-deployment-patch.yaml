@@ -12,7 +12,8 @@ spec:
             - --configmap
             - workflow-controller-configmap
             - --executor-image
-            - gcr.io/ml-pipeline/argoexec:v3.4.17-license-compliance
+            # gcr.io/ml-pipeline/argoexec 이미지가 삭제되어 업스트림 argoexec(같은 v3.4.17)으로 대체
+            - quay.io/argoproj/argoexec:v3.4.17
           securityContext:
             seccompProfile:
               type: RuntimeDefault
