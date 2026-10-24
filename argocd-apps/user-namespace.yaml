@@ -11,6 +11,7 @@ spec:
     path: common/user-namespace/base
   destination:
     server: https://kubernetes.default.svc
+    namespace: kubeflow  # ConfigMap(default-install-config)에 네임스페이스가 없어 지정 필요
   syncPolicy:
     automated:
       prune: true
