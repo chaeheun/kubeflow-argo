@@ -4,6 +4,7 @@ namespace: argocd
 
 resources:
 - namespace.yaml
+- service-nodeport-30001.yaml
 - github.com/argoproj/argo-cd/manifests/cluster-install?ref=5bcd846fa16e4b19d8f477de7da50ec0aef320e5 # tag=v2.6.7
 
 patchesStrategicMerge:
