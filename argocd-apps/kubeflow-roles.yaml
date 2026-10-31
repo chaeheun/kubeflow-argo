@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/gasida/kubeflow-argo.git
+    repoURL: https://github.com/chaeheun/kubeflow-argo.git
     targetRevision: main
     path: common/kubeflow-roles/base
   destination:
