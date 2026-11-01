@@ -22,3 +22,6 @@ spec:
             requests:
               cpu: 100m
               memory: 500Mi
+          env:
+            - name: LEADER_ELECTION_DISABLE
+              value: "true"
